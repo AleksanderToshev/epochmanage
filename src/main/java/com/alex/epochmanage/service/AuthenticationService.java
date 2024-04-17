@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+//Used ChatGPT to create logic
+
 @Service
 public class AuthenticationService {
 

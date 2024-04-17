@@ -48,6 +48,7 @@ public class MainController {
 
     @GetMapping("/addToDoItem")
     public String addToDoItem(Model model) {
+
         model.addAttribute("todo", new ToDo());
 
         return "addToDoItem";
@@ -55,6 +56,7 @@ public class MainController {
 
     @PostMapping("/saveToDoItem")
     public String saveToDoItem(ToDo todo, RedirectAttributes redirectAttributes) {
+
         if(service.saveOrUpdateToDoItem(todo)) {
             redirectAttributes.addFlashAttribute("message", "Save Success");
             return "redirect:/viewToDoList";

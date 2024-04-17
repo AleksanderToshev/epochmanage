@@ -2,10 +2,7 @@ package com.alex.epochmanage.model;
 
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
@@ -15,7 +12,7 @@ import java.util.Date;
 @Getter
 @Setter
 @Table(name = "ToDo")
-
+@AllArgsConstructor
 //Everything from the ToDo video
 
 public class ToDo {
