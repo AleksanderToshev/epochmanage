@@ -4,6 +4,7 @@ package com.alex.epochmanage.controller;
 import com.alex.epochmanage.model.User;
 import com.alex.epochmanage.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -18,7 +19,7 @@ import java.util.Optional;
 
 //Logic got from the StackOverflow guy
 
-@RestController
+@Controller
 public class RegisterController {
 
     @Autowired
@@ -56,7 +57,7 @@ public class RegisterController {
 
 
         //Checks if the email or username is already registered in the db
-        if(emailChecker != null || usernameChecker != null){
+        if(emailChecker != null || usernameChecker.isEmpty()){
             redirectAttributes.addFlashAttribute("errorMessage",
                     "The email or username already exists!");
             return "redirect:/registration";
