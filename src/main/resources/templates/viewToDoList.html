@@ -37,13 +37,14 @@
             <button type="button" class="btn btn-danger" style="float: right;">
                 <a th:href="@{/logout}">Logout</a>
             </button>
-            <span th:text="${username}" style="margin-right: 10px;"></span>
+           <!-- <span th:text="${username}" style="margin-right: 10px;"></span> -->
         </h1>
     <table class="table table-bordered">
         <tr>
             <th>Id</th>
             <th>Title</th>
             <th>Date</th>
+            <th>Time</th>
             <th>Status</th>
             <th>Mark Completed</th>
             <th>Edit</th>
@@ -53,7 +54,8 @@
                 <tr th:each="todo : ${list}">
                 <td th:text="${todo.id}"></td>
                 <td th:text="${todo.title}"></td>
-                <td th:text="${todo.date}"></td>
+                <td th:text="${#dates.format(todo.date, 'dd-MM-yyyy')}"></td>
+                <td th:text="${#dates.format(todo.time, 'HH:mm aa')}"></td>
                 <td th:text="${todo.status}"></td>
                 <td>
                     <button type="button" class="btn btn-success">

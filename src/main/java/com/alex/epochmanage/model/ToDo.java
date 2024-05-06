@@ -30,6 +30,12 @@ public class ToDo {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @NonNull
     private Date date;
+
+    @Column(name = "TIME")
+    @DateTimeFormat(pattern = "HH:mm aa")
+    @NonNull
+    private Date time;
+
     @NonNull
     @Column(name = "STATUS")
     private String status;

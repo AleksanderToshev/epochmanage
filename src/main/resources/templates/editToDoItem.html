@@ -42,6 +42,15 @@
 
         <div class="row">
             <div class="form-group col-md-12">
+                <label class="col-md-3" for="time">Time</label>
+                <div class="col-md-6">
+                    <input type="time" th:field="*{time}" id="time" class="form-control input-sm" required="required"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group col-md-12">
                 <label class="col-md-3" for="status">Status</label>
                 <div class="col-md-6">
                     <input type="text" th:field="*{status}" id="status" class="form-control input-sm" value="Incomplete"/>
