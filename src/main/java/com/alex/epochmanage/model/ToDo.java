@@ -32,7 +32,7 @@ public class ToDo {
     private Date date;
 
     @Column(name = "TIME")
-    @DateTimeFormat(pattern = "HH:mm aa")
+    @DateTimeFormat(pattern = "HH:mm")
     @NonNull
     private Date time;
 

@@ -1,94 +1,164 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-                    <!-- Everything is from the Todo list video -->
-
 <head>
-
     <meta charset="UTF-8">
-    <title>View ToDo Item List</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo Item List</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-
-    <link rel="stylesheet" href="path/to/toastr.min.css">
-
-    <!-- Include locally stored Toastr JS -->
-    <script src="path/to/toastr.min.js"></script>
-
     <style>
-        a {
-            color: white;
+        /* Custom styles */
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        a:hover {
-            color: white;
+        .container {
+            margin-top: 50px;
+            padding: 30px;
+            border-radius: 15px;
+            background-color: #fff;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            margin-bottom: 30px;
+            color: #007bff;
+            font-weight: bold;
+            font-size: 36px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            background-color: #f3f3f3;
+            border-radius: 15px;
+            border: none;
+        }
+
+        th {
+            background-color: #007bff;
+            color: #fff;
+            font-weight: bold;
+            border: none;
+            font-size: 18px;
+        }
+
+        td {
+            font-size: 16px;
+            padding: 10px;
+        }
+
+        .action-buttons a {
+            color: #fff;
             text-decoration: none;
+            font-weight: bold;
+        }
+
+        .btn-action {
+            border-radius: 8px;
+            margin-right: 5px;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-action:hover {
+            opacity: 0.8;
+        }
+
+        .btn-success {
+            background-color: #28a745;
+            border-color: #28a745;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+            border-color: #dc3545;
+        }
+
+        .btn-add {
+            background-color: #007bff; /* Matching color to the header */
+            color: #fff;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 12px 24px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-add:hover {
+            background-color: #0056b3; /* Darker shade on hover */
+        }
+
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+        }
+
+        .toast {
+            background-color: #343a40;
+            color: #fff;
+            border-radius: 8px;
+            font-size: 16px;
+            padding: 10px 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>
+
 <body>
 
 <div class="container">
-    <div class="container">
-        <h1 class="p-3">
-            ToDo Item List
-            <button type="button" class="btn btn-danger" style="float: right;">
-                <a th:href="@{/logout}">Logout</a>
-            </button>
-           <!-- <span th:text="${username}" style="margin-right: 10px;"></span> -->
-        </h1>
+    <h1>ToDo Item List</h1>
     <table class="table table-bordered">
+        <thead>
         <tr>
             <th>Id</th>
             <th>Title</th>
             <th>Date</th>
             <th>Time</th>
             <th>Status</th>
-            <th>Mark Completed</th>
-            <th>Edit</th>
-            <th>Delete</th>
+            <th>Actions</th>
         </tr>
-            <tr th:each="user : ${user}">
-                <tr th:each="todo : ${list}">
-                <td th:text="${todo.id}"></td>
-                <td th:text="${todo.title}"></td>
-                <td th:text="${#dates.format(todo.date, 'dd-MM-yyyy')}"></td>
-                <td th:text="${#dates.format(todo.time, 'HH:mm aa')}"></td>
-                <td th:text="${todo.status}"></td>
-                <td>
-                    <button type="button" class="btn btn-success">
-                        <a th:href="@{'/updateToDoStatus/' + ${todo.id}}">Mark Complete</a>
-                    </button>
-                </td>
-                <td>
-                    <button type="button" class="btn btn-primary">
-                        <a th:href="@{'/editToDoItem/' + ${todo.id}}">Edit</a>
-                    </button>
-                </td>
-                <td>
-                    <button type="button" class="btn btn-danger"
-                            onclick="if (! (confirm('Are you sure you want to delete this task?'))) return false">
-                        <a th:href="@{'/deleteToDoItem/' + ${todo.id}}">Delete</a>
-                    </button>
-                </td>
-                </tr>
+        </thead>
+        <tbody>
+        <tr th:each="todo : ${list}">
+            <td th:text="${todo.id}"></td>
+            <td th:text="${todo.title}"></td>
+            <td th:text="${#dates.format(todo.date, 'dd-MM-yyyy')}"></td>
+            <td th:text="${#dates.format(todo.time, 'HH:mm aa')}"></td>
+            <td th:text="${todo.status}"></td>
+            <td class="action-buttons">
+                <button type="button" class="btn btn-success btn-action">
+                    <a th:href="@{'/updateToDoStatus/' + ${todo.id}}">Mark Complete</a>
+                </button>
+                <button type="button" class="btn btn-primary btn-action">
+                    <a th:href="@{'/editToDoItem/' + ${todo.id}}">Edit</a>
+                </button>
+                <button type="button" class="btn btn-danger btn-action"
+                        onclick="if (!confirm('Are you sure you want to delete this task?')) return false;">
+                    <a th:href="@{'/deleteToDoItem/' + ${todo.id}}">Delete</a>
+                </button>
+            </td>
+        </tr>
+        </tbody>
     </table>
-    <button type="button" class="btn btn-primary btn-block">
-        <a th:href="@{/addToDoItem}">Add New ToDo Item</a>
-    </button>
-    </div>
+    <a class="btn btn-add btn-block mt-3" th:href="@{/addToDoItem}" role="button">Add New ToDo Item</a>
 </div>
 
 <!-- Toastr notifications -->
-<div id="toastr-notification" class="toast">
-    <div id="toast-content"></div>
+<div class="toast-container">
+    <div id="toastr-notification" class="toast"></div>
 </div>
 
-
-
-<script th:inline="javascript">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+<script>
     window.onload = function() {
         var msg = /*[[${message}]]*/ "";
 
@@ -121,4 +191,5 @@
     }
 </script>
 </body>
+
 </html>
