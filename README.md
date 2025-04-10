@@ -1,5 +1,5 @@
 # EpochManage
-**Disclaimer:** This project is currently under development and not yet fully functional. Features are incomplete and subject to change.
+**Disclaimer:** This project is currently under development and not yet fully functional(Because of focusing on university). Features are incomplete and subject to change.
 
 **EpochManage** is a Java-based web application designed to manage time-based events or "epochs". Built with a Maven structure, the project provides a scalable base for further development in web-based scheduling or event handling systems.
 
